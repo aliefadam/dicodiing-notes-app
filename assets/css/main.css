@@ -1,0 +1,30 @@
+:root {
+  --primary: #2a2438;
+  --secondary: #352f44;
+  --tertiary: #5c5470;
+  --white: #dbd8e3;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  padding: 30px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span,
+p,
+a {
+  line-height: 1;
+}

@@ -1,0 +1,37 @@
+.text-primary {
+  color: var(--primary);
+}
+
+.text-secondary {
+  color: var(--secondary);
+}
+
+.text-tertiary {
+  color: var(--tertiary);
+}
+
+.text-white {
+  color: var(--white);
+}
+
+.flex-end {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-primary {
+  padding: 13px 25px;
+  cursor: pointer;
+  border: none;
+  background-color: var(--primary);
+  color: var(--white);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  line-height: 1;
+}
+
+.mt-16 {
+  margin-top: 16px;
+}

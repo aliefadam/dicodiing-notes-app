@@ -1,0 +1,42 @@
+@media (max-width: 575.98px) {
+  body {
+    padding: 20px;
+  }
+  header {
+    display: flex;
+    flex-direction: column;
+  }
+
+  header .left {
+    order: 2;
+  }
+
+  header .left h2 {
+    text-align: center;
+  }
+
+  header .right {
+    order: 1;
+  }
+
+  header .right .item {
+    grid-template-columns: repeat(1, 1fr) !important;
+  }
+
+  #modal-detail .modal-container {
+    width: 90% !important;
+  }
+
+  #modal-detail .modal-container .modal-body .item p:not(.detail-title) {
+    text-align: left !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  #modal-detail .modal-container {
+    width: 70% !important;
+  }
+  header .right .item {
+    grid-template-columns: repeat(1, 1fr) !important;
+  }
+}

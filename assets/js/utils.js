@@ -115,10 +115,15 @@ class Utils {
     return formattedDate;
   }
 
-  static addEllipsis(str) {
-    if (str.length > 50) {
-      return str.replace(/\n/g, "<br>").substring(0, 50) + " ...";
+  static addEllipsis(str, limit = 0) {
+    if (limit == 0) {
+      return str.replace(/\n/g, "<br>");
     }
+
+    if (str.length > limit) {
+      return str.replace(/\n/g, "<br>").substring(0, limit) + " ...";
+    }
+
     return str.replace(/\n/g, "<br>");
   }
 }

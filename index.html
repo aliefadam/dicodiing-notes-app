@@ -51,23 +51,7 @@
         <h2 class="text-primary poppins-semibold">
           <i class="fa-regular fa-circle-plus"></i> Tambah Catatan
         </h2>
-        <form action="" id="notes-form">
-          <div class="form-group">
-            <label for="judul">Judul</label>
-            <input type="text" name="judul" id="judul" autocomplete="off" />
-          </div>
-          <ul class="error-message error-message-judul"></ul>
-          <div class="form-group">
-            <label for="isi">Isi</label>
-            <textarea rows="5" name="isi" id="isi"></textarea>
-          </div>
-          <ul class="error-message error-message-isi"></ul>
-          <div class="flex-end mt-16">
-            <button id="btn-tambah-catatan" class="btn-primary poppins-medium">
-              <i class="fa-regular fa-plus"></i> Tambah
-            </button>
-          </div>
-        </form>
+        <add-note-form></add-note-form>
       </div>
       <div class="right header-item">
         <h1 class="title poppins-bold-italic">NOTES APP</h1>
@@ -76,20 +60,16 @@
         </p>
         <hr />
         <div class="item">
-          <div class="sub-item">
-            <div class="sub-item-left">
-              <span class="poppins-medium">Total Catatan</span>
-              <span class="poppins-semibold" id="total-catatan">0</span>
-            </div>
-            <i class="fa-regular fa-notes fa-2x"></i>
-          </div>
-          <div class="sub-item">
-            <div class="sub-item-left">
-              <span class="poppins-medium">Catatan Diarsipkan</span>
-              <span class="poppins-semibold" id="catatan-diarsipkan">0</span>
-            </div>
-            <i class="fa-regular fa-box-archive fa-2x"></i>
-          </div>
+          <info-card
+            number-id="total-catatan"
+            title="Total Catatan"
+            icon="fa-notes"
+          ></info-card>
+          <info-card
+            number-id="catatan-diarsipkan"
+            title="Catatan Diarsipkan"
+            icon="fa-box-archive"
+          ></info-card>
         </div>
       </div>
     </header>
@@ -110,6 +90,49 @@
 
       <div class="container-catatan" id="container-catatan"></div>
     </main>
+
+    <!-- modal detail -->
+    <div id="modal-detail">
+      <div class="modal-container">
+        <div class="modal-header">
+          <h3>Detail Catatan</h3>
+          <i id="btn-hide-modal" class="fa-regular fa-xmark"></i>
+        </div>
+        <div class="modal-body styling-scrollbar">
+          <div class="item">
+            <span class="poppins-medium">Judul</span>
+            <p class="poppins-bold detail-title" id="detail-title">
+              Lorem ipsum dolor sit amet consectetur.
+            </p>
+          </div>
+          <div class="item">
+            <span class="poppins-medium">Isi</span>
+            <p class="detail-body" id="detail-body">
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim,
+              perferendis corrupti, inventore laboriosam corporis doloribus
+              dolorum, quis qui provident aliquid quod. Adipisci, consequuntur?
+              Blanditiis ea esse tempora veniam, provident pariatur soluta
+              dolores tempore quaerat culpa sint quam dignissimos amet sit
+              voluptatibus doloribus sed ducimus eveniet nemo vitae vero autem
+              obcaecati eos? Animi error explicabo velit nesciunt sapiente saepe
+              expedita atque aperiam incidunt consectetur qui dolorum possimus,
+              sunt distinctio omnis libero quis quod earum deserunt sint?
+              Similique tempora illum mollitia aliquid itaque perspiciatis
+              excepturi! Non eligendi quisquam sunt. Sapiente blanditiis
+              delectus eum alias harum aliquid, eligendi quod. Sequi vel placeat
+              quaerat. voluptatibus doloribus sed ducimus eveniet nemo vitae
+              vero autem obcaecati eos? Animi error explicabo velit nesciunt
+              sapiente saepe expedita atque aperiam incidunt consectetur qui
+              dolorum possimus, sunt distinctio omnis libero quis quod earum
+              deserunt sint? Similique tempora illum mollitia aliquid itaque
+              perspiciatis excepturi! Non eligendi quisquam sunt. Sapiente
+              blanditiis delectus eum alias harum aliquid, eligendi quod. Sequi
+              vel placeat quaerat.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Javascript -->
     <script type="module" src="assets/js/index.js"></script>

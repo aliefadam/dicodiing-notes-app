@@ -1,4 +1,6 @@
 import "./components/NoteItem.js";
+import "./components/InfoCard.js";
+import "./components/AddNoteForm.js";
 import Utils from "./utils.js";
 
 const notesData = [
@@ -116,6 +118,7 @@ const inputIsi = document.querySelector("textarea#isi");
 const notesForm = document.getElementById("notes-form");
 const tabCatatan = document.getElementById("tab-catatan");
 const tabDiarsipkan = document.getElementById("tab-diarsipkan");
+const btnHideModal = document.getElementById("btn-hide-modal");
 
 inputJudul.addEventListener("input", checkValidation);
 inputIsi.addEventListener("input", checkValidation);
@@ -123,6 +126,18 @@ notesForm.addEventListener("submit", (e) => handleSubmit(e));
 document.addEventListener("click", deleteData);
 document.addEventListener("click", archiveData);
 document.addEventListener("click", unArchiveData);
+document.addEventListener("click", showDetail);
+document.addEventListener("click", ({ target }) => {
+  if (!target.closest(".modal-container")) {
+    if (
+      !target.classList.contains("btn-detail") &&
+      !target.classList.contains("icon-detail")
+    ) {
+      closeModal();
+    }
+  }
+});
+btnHideModal.addEventListener("click", closeModal);
 tabCatatan.addEventListener("click", () => showData({ isArchived: false }));
 tabDiarsipkan.addEventListener("click", () => showData({ isArchived: true }));
 
@@ -255,7 +270,10 @@ function showData({ isArchived = false } = {}) {
 }
 
 function deleteData({ target }) {
-  if (target.classList.contains("btn-hapus")) {
+  if (
+    target.classList.contains("btn-hapus") ||
+    target.classList.contains("icon-hapus")
+  ) {
     const id = target.getAttribute("data-id");
     let isArchived = false;
     Utils.showConfirmationDelete().then((result) => {
@@ -282,7 +300,10 @@ function deleteData({ target }) {
 }
 
 function archiveData({ target }) {
-  if (target.classList.contains("btn-arsip")) {
+  if (
+    target.classList.contains("btn-arsip") ||
+    target.classList.contains("icon-arsip")
+  ) {
     const id = target.getAttribute("data-id");
     const notes = getLocalStorageItem("notesData").map((note) => {
       if (note.id == id) {
@@ -296,7 +317,10 @@ function archiveData({ target }) {
 }
 
 function unArchiveData({ target }) {
-  if (target.classList.contains("btn-keluarkan-arsip")) {
+  if (
+    target.classList.contains("btn-keluarkan-arsip") ||
+    target.classList.contains("icon-keluarkan-arsip")
+  ) {
     const id = target.getAttribute("data-id");
     const notes = getLocalStorageItem("notesData").map((note) => {
       if (note.id == id) {
@@ -307,6 +331,25 @@ function unArchiveData({ target }) {
     saveToLocalStorage("notesData", JSON.stringify(notes));
     showData({ isArchived: true });
   }
+}
+
+function showDetail({ target }) {
+  if (
+    target.classList.contains("btn-detail") ||
+    target.classList.contains("icon-detail")
+  ) {
+    const id = target.getAttribute("data-id");
+    const modalDetail = document.getElementById("modal-detail");
+    const note = getLocalStorageItem("notesData").find((note) => note.id == id);
+    const { title, body } = note;
+    document.getElementById("detail-title").innerHTML = title;
+    document.getElementById("detail-body").innerHTML = Utils.addEllipsis(body);
+    modalDetail.style.display = "flex";
+  }
+}
+
+function closeModal() {
+  document.getElementById("modal-detail").style.display = "none";
 }
 
 function saveToLocalStorage(key, value) {

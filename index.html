@@ -46,50 +46,60 @@
     />
   </head>
   <body>
-    <header>
-      <div class="left header-item">
-        <h2 class="text-primary poppins-semibold">
-          <i class="fa-regular fa-circle-plus"></i> Tambah Catatan
-        </h2>
-        <add-note-form></add-note-form>
-      </div>
-      <div class="right header-item">
-        <h1 class="title poppins-bold-italic">NOTES APP</h1>
-        <p class="poppins-medium">
-          Pencatatan Lebih Mudah dengan Aplikasi Kami
-        </p>
-        <hr />
-        <div class="item">
-          <info-card
-            number-id="total-catatan"
-            title="Total Catatan"
-            icon="fa-notes"
-          ></info-card>
-          <info-card
-            number-id="catatan-diarsipkan"
-            title="Catatan Diarsipkan"
-            icon="fa-box-archive"
-          ></info-card>
+    <div id="main-content">
+      <header>
+        <div class="left header-item">
+          <h2 class="text-primary poppins-semibold">
+            <i class="fa-regular fa-circle-plus"></i> Tambah Catatan
+          </h2>
+          <add-note-form></add-note-form>
         </div>
-      </div>
-    </header>
+        <div class="right header-item">
+          <h1 class="title poppins-bold-italic">NOTES APP</h1>
+          <p class="poppins-medium">
+            Pencatatan Lebih Mudah dengan Aplikasi Kami
+          </p>
+          <hr />
+          <div class="item">
+            <info-card
+              number-id="total-catatan"
+              title="Total Catatan"
+              icon="fa-notes"
+            ></info-card>
+            <info-card
+              number-id="catatan-diarsipkan"
+              title="Catatan Diarsipkan"
+              icon="fa-box-archive"
+            ></info-card>
+          </div>
+        </div>
+      </header>
 
-    <main>
-      <h1 class="title">Daftar Catatan</h1>
+      <main>
+        <h1 class="title">Daftar Catatan</h1>
 
-      <!-- Tab Pane -->
-      <div class="tab-pane">
-        <button id="tab-catatan" class="active-tab">
-          <i class="fa-regular fa-notes"></i> Utama
-        </button>
-        <button id="tab-diarsipkan" class="">
-          <i class="fa-regular fa-box-archive"></i>
-          Diarsipkan
-        </button>
-      </div>
+        <!-- Tab Pane -->
+        <div class="tab-pane">
+          <button id="tab-catatan" class="active-tab">
+            <i class="fa-regular fa-notes"></i> Utama
+          </button>
+          <button id="tab-diarsipkan" class="">
+            <i class="fa-regular fa-box-archive"></i>
+            Diarsipkan
+          </button>
+        </div>
 
-      <div class="container-catatan" id="container-catatan"></div>
-    </main>
+        <div class="container-catatan" id="container-catatan"></div>
+      </main>
+    </div>
+
+    <my-footer></my-footer>
+
+    <!-- <footer>
+      <p class="poppins-medium">
+        Copyright &copy; 2022 - <span class="">Notes App | By Alief Adam</span>
+      </p>
+    </footer> -->
 
     <!-- modal detail -->
     <div id="modal-detail">

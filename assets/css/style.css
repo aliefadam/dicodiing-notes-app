@@ -7,6 +7,10 @@ body {
   position: relative;
 }
 
+#main-content {
+  padding: 30px;
+}
+
 header {
   display: flex;
   gap: 30px;
@@ -260,4 +264,14 @@ main .container-catatan .catatan-item .action .btn-hapus:hover {
 #modal-detail .modal-container .modal-body .item p:not(.detail-title) {
   line-height: 1.5;
   text-align: justify;
+}
+
+footer {
+  padding: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  color: var(--white);
+  background-color: var(--primary);
 }

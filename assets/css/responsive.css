@@ -1,7 +1,8 @@
 @media (max-width: 575.98px) {
-  body {
-    padding: 20px;
+  #main-content {
+    padding: 20px !important;
   }
+
   header {
     display: flex;
     flex-direction: column;
@@ -29,6 +30,12 @@
 
   #modal-detail .modal-container .modal-body .item p:not(.detail-title) {
     text-align: left !important;
+  }
+
+  footer p {
+    display: block;
+    text-align: center;
+    font-size: 12px;
   }
 }
 

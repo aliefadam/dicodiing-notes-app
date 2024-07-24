@@ -1,6 +1,7 @@
 import "./components/NoteItem.js";
 import "./components/InfoCard.js";
 import "./components/AddNoteForm.js";
+import "./components/MyFooter.js";
 import Utils from "./utils.js";
 
 const notesData = [

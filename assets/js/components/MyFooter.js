@@ -11,7 +11,7 @@ class MyFooter extends HTMLElement {
     this.innerHTML = `
         <<footer>
             <p class="poppins-medium">
-                Copyright &copy; 2022 - <span class="">Notes App | By Alief Adam</span>
+                Copyright &copy; 2024 - <span class="">Notes App | By Alief Adam</span>
             </p>
         </footer>
     `;

@@ -1,4 +1,5 @@
 import "./components/NoteItem.js";
+import Utils from "./utils.js";
 
 const notesData = [
   {
@@ -110,17 +111,214 @@ const notesData = [
 
 showData();
 
-function showData() {
-  notesData.forEach((note) => {
-    const noteItem = document.createElement("note-item");
-    noteItem.setAttribute("title", note.title);
-    noteItem.setAttribute("body", note.body);
-    document.getElementById("container-catatan").append(noteItem);
+const inputJudul = document.querySelector("input#judul");
+const inputIsi = document.querySelector("textarea#isi");
+const notesForm = document.getElementById("notes-form");
+const tabCatatan = document.getElementById("tab-catatan");
+const tabDiarsipkan = document.getElementById("tab-diarsipkan");
+
+inputJudul.addEventListener("input", checkValidation);
+inputIsi.addEventListener("input", checkValidation);
+notesForm.addEventListener("submit", (e) => handleSubmit(e));
+document.addEventListener("click", deleteData);
+document.addEventListener("click", archiveData);
+document.addEventListener("click", unArchiveData);
+tabCatatan.addEventListener("click", () => showData({ isArchived: false }));
+tabDiarsipkan.addEventListener("click", () => showData({ isArchived: true }));
+
+function showError(name, value) {
+  const errorMessage = document.querySelector(`.error-message-${name}`);
+  errorMessage.innerHTML = "";
+  document.querySelector(`[name=${name}]`).style.border = "2px solid #2a243831";
+  const listErrorMessage = [];
+
+  if (value.length == 0) {
+    const liElement = Utils.createElement({
+      tag: "li",
+      content: "Tidak Boleh Kosong",
+    });
+    errorMessage.append(liElement);
+    document.querySelector(`[name=${name}]`).style.border = "2px solid #dc3545";
+    listErrorMessage.push(`${name} Tidak Boleh Kosong`);
+  }
+
+  if (value.length < 3) {
+    const liElement = Utils.createElement({
+      tag: "li",
+      content: "Minimal 3 Karakter",
+    });
+    errorMessage.append(liElement);
+    document.querySelector(`[name=${name}]`).style.border = "2px solid #dc3545";
+    listErrorMessage.push(`${name} Minimal 3 Karakter`);
+  }
+
+  errorMessage.style.display = "block";
+  return listErrorMessage;
+}
+
+function checkValidation() {
+  const value = this.value;
+  const name = this.getAttribute("name");
+  showError(name, value);
+}
+
+function handleSubmit(e) {
+  e.preventDefault();
+  const listInput = e.target.querySelectorAll("input, textarea");
+  const listError = [];
+  listInput.forEach((el) => {
+    const message = showError(el.name, el.value);
+    listError.push(message);
   });
 
-  const totalCatatan = notesData.length;
-  const catatanDiarsipkan = notesData.filter((note) => note.archived).length;
+  if (listError.flat().length > 0) {
+    console.log("masih di run");
+    const errorMessage =
+      listError.flat()[0].toString().charAt(0).toUpperCase() +
+      listError.flat()[0].toString().slice(1);
+    Utils.showNotification({
+      title: "Gagal",
+      text: errorMessage,
+      icon: "error",
+    });
+    return;
+  }
+
+  saveData({
+    title: listInput[0].value,
+    body: listInput[1].value,
+  });
+}
+
+function saveData({ title, body }) {
+  const newNotes = {
+    id: Utils.generateId(),
+    title: title,
+    body: body,
+    createdAt: Utils.generateTimestamp(),
+    archived: false,
+  };
+
+  Utils.showNotification({
+    title: "Sukses",
+    text: "Berhasil Menambah Catatan",
+    icon: "success",
+  });
+
+  const notes = [...getLocalStorageItem("notesData"), newNotes];
+  saveToLocalStorage("notesData", JSON.stringify(notes));
+
+  showData();
+  clearForm();
+}
+
+function showData({ isArchived = false } = {}) {
+  const tabCatatan = document.getElementById("tab-catatan");
+  const tabDiarsipkan = document.getElementById("tab-diarsipkan");
+
+  if (isArchived) {
+    tabCatatan.classList.remove("active-tab");
+    tabDiarsipkan.classList.add("active-tab");
+  } else {
+    tabCatatan.classList.add("active-tab");
+    tabDiarsipkan.classList.remove("active-tab");
+  }
+
+  document.getElementById("container-catatan").innerHTML = "";
+  let notes = [];
+
+  if (JSON.parse(localStorage.getItem("notesData"))) {
+    notes = getLocalStorageItem("notesData");
+  } else {
+    saveToLocalStorage("notesData", JSON.stringify(notesData));
+    notes = getLocalStorageItem("notesData");
+  }
+
+  notes.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  notes
+    .filter((note) => note.archived == isArchived)
+    .forEach((note) => {
+      const noteItem = document.createElement("note-item");
+      noteItem.setAttribute("id", note.id);
+      noteItem.setAttribute("title", note.title);
+      noteItem.setAttribute("body", note.body);
+      noteItem.setAttribute("created_at", note.createdAt);
+      noteItem.setAttribute("archived", note.archived);
+      document.getElementById("container-catatan").append(noteItem);
+    });
+
+  const totalCatatan = notes.length;
+  const catatanDiarsipkan = notes.filter((note) => note.archived).length;
 
   document.getElementById("total-catatan").innerHTML = totalCatatan;
   document.getElementById("catatan-diarsipkan").innerHTML = catatanDiarsipkan;
+}
+
+function deleteData({ target }) {
+  if (target.classList.contains("btn-hapus")) {
+    const id = target.getAttribute("data-id");
+    let isArchived = false;
+    Utils.showConfirmationDelete().then((result) => {
+      if (result.isConfirmed) {
+        getLocalStorageItem("notesData").forEach((note) => {
+          if (note.id == id) {
+            isArchived = note.archived;
+          }
+        });
+        const updatedNotes = getLocalStorageItem("notesData").filter(
+          (note) => note.id != id
+        );
+        console.log("diarsipkan:", isArchived);
+        saveToLocalStorage("notesData", JSON.stringify(updatedNotes));
+        showData({ isArchived: isArchived });
+        Utils.showNotification({
+          text: "Data Dihapus",
+          icon: "success",
+          title: "Berhasil",
+        });
+      }
+    });
+  }
+}
+
+function archiveData({ target }) {
+  if (target.classList.contains("btn-arsip")) {
+    const id = target.getAttribute("data-id");
+    const notes = getLocalStorageItem("notesData").map((note) => {
+      if (note.id == id) {
+        note.archived = !note.archived;
+      }
+      return note;
+    });
+    saveToLocalStorage("notesData", JSON.stringify(notes));
+    showData({ isArchived: false });
+  }
+}
+
+function unArchiveData({ target }) {
+  if (target.classList.contains("btn-keluarkan-arsip")) {
+    const id = target.getAttribute("data-id");
+    const notes = getLocalStorageItem("notesData").map((note) => {
+      if (note.id == id) {
+        note.archived = !note.archived;
+      }
+      return note;
+    });
+    saveToLocalStorage("notesData", JSON.stringify(notes));
+    showData({ isArchived: true });
+  }
+}
+
+function saveToLocalStorage(key, value) {
+  localStorage.setItem(key, value);
+}
+
+function getLocalStorageItem(key) {
+  return JSON.parse(localStorage.getItem(key));
+}
+
+function clearForm() {
+  notesForm.querySelectorAll("input, textarea").forEach((el) => {
+    el.value = "";
+  });
 }

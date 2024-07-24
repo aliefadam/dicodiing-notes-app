@@ -26,6 +26,12 @@ header .left form {
   margin-top: 20px;
 }
 
+header .left .error-message {
+  margin: 10px 20px;
+  color: #dc3545;
+  display: none;
+}
+
 header .left form .form-group {
   display: flex;
   flex-direction: column;
@@ -41,7 +47,8 @@ header .left form .form-group textarea {
   resize: none;
 }
 
-header .left form .form-group input:focus {
+header .left form .form-group input:focus,
+header .left form .form-group textarea:focus {
   outline: none;
   border: 2px solid var(--primary);
 }
@@ -94,6 +101,33 @@ main .title {
   color: var(--tertiary);
 }
 
+main .tab-pane {
+  border-bottom: 1px solid var(--primary);
+  margin-top: 30px;
+  display: flex;
+  gap: 15px;
+}
+
+main .tab-pane button {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: transparent;
+  border: transparent;
+  font-size: 16px;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+main .tab-pane button:not(.active-tab):hover {
+  background-color: #f1f1f1;
+}
+
+main .tab-pane button.active-tab {
+  background-color: #f1f1f1;
+  font-weight: 600 !important;
+  color: var(--primary);
+}
+
 main .container-catatan {
   margin-top: 30px;
   display: grid;
@@ -102,10 +136,17 @@ main .container-catatan {
 }
 
 main .container-catatan .catatan-item {
-  padding: 20px;
+  padding: 15px;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
     rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}
+
+main .container-catatan .catatan-item span.created-at {
+  display: block;
+  font-size: 12px;
+  color: var(--tertiary);
+  margin-bottom: 10px;
 }
 
 main .container-catatan .catatan-item h3 {
@@ -114,6 +155,8 @@ main .container-catatan .catatan-item h3 {
 
 main .container-catatan .catatan-item p {
   line-height: 1.5;
+  height: 50px;
+  overflow: hidden;
 }
 
 main .container-catatan .catatan-item .action {
@@ -138,7 +181,8 @@ main .container-catatan .catatan-item .action .btn-detail:hover {
   border: transparent;
 }
 
-main .container-catatan .catatan-item .action .btn-arsip:hover {
+main .container-catatan .catatan-item .action .btn-arsip:hover,
+main .container-catatan .catatan-item .action .btn-keluarkan-arsip:hover {
   background-color: var(--tertiary);
   color: white;
   border: transparent;

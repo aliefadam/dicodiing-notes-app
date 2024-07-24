@@ -54,20 +54,16 @@
         <form action="" id="notes-form">
           <div class="form-group">
             <label for="judul">Judul</label>
-            <input
-              required
-              type="text"
-              name="judul"
-              id="judul"
-              autocomplete="off"
-            />
+            <input type="text" name="judul" id="judul" autocomplete="off" />
           </div>
+          <ul class="error-message error-message-judul"></ul>
           <div class="form-group">
             <label for="isi">Isi</label>
-            <textarea required rows="5" name="isi" id="isi"></textarea>
+            <textarea rows="5" name="isi" id="isi"></textarea>
           </div>
+          <ul class="error-message error-message-isi"></ul>
           <div class="flex-end mt-16">
-            <button class="btn-primary poppins-medium">
+            <button id="btn-tambah-catatan" class="btn-primary poppins-medium">
               <i class="fa-regular fa-plus"></i> Tambah
             </button>
           </div>
@@ -100,6 +96,18 @@
 
     <main>
       <h1 class="title">Daftar Catatan</h1>
+
+      <!-- Tab Pane -->
+      <div class="tab-pane">
+        <button id="tab-catatan" class="active-tab">
+          <i class="fa-regular fa-notes"></i> Utama
+        </button>
+        <button id="tab-diarsipkan" class="">
+          <i class="fa-regular fa-box-archive"></i>
+          Diarsipkan
+        </button>
+      </div>
+
       <div class="container-catatan" id="container-catatan"></div>
     </main>
 

@@ -9,7 +9,7 @@ class MyFooter extends HTMLElement {
 
   render() {
     this.innerHTML = `
-        <<footer>
+        <footer>
             <p class="poppins-medium">
                 Copyright &copy; 2024 - <span class="">Notes App | By Alief Adam</span>
             </p>

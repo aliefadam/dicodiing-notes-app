@@ -1,3 +1,4 @@
+import "./../css/style.css";
 import "./components/NoteItem.js";
 import "./components/InfoCard.js";
 import "./components/AddNoteForm.js";
@@ -188,7 +189,6 @@ function handleSubmit(e) {
   });
 
   if (listError.flat().length > 0) {
-    console.log("masih di run");
     const errorMessage =
       listError.flat()[0].toString().charAt(0).toUpperCase() +
       listError.flat()[0].toString().slice(1);
@@ -287,7 +287,6 @@ function deleteData({ target }) {
         const updatedNotes = getLocalStorageItem("notesData").filter(
           (note) => note.id != id
         );
-        console.log("diarsipkan:", isArchived);
         saveToLocalStorage("notesData", JSON.stringify(updatedNotes));
         showData({ isArchived: isArchived });
         Utils.showNotification({

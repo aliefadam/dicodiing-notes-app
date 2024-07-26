@@ -1,11 +1,11 @@
 class InfoCard extends HTMLElement {
-  static observedAttributes = ["number-id", "title", "icon"];
+  static observedAttributes = ['number-id', 'title', 'icon'];
   constructor() {
     super();
 
-    this._numberID = this.getAttribute("number-id");
-    this._title = this.getAttribute("title");
-    this._icon = this.getAttribute("icon");
+    this._numberID = this.getAttribute('number-id');
+    this._title = this.getAttribute('title');
+    this._icon = this.getAttribute('icon');
   }
 
   connectedCallback() {
@@ -29,4 +29,4 @@ class InfoCard extends HTMLElement {
   }
 }
 
-customElements.define("info-card", InfoCard);
+customElements.define('info-card', InfoCard);

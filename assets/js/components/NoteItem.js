@@ -1,16 +1,16 @@
-import Utils from "../utils.js";
+import Utils from '../utils.js';
 
 class NoteItem extends HTMLElement {
-  static observedAttributes = ["id", "title", "body", "created_at", "archived"];
+  static observedAttributes = ['id', 'title', 'body', 'created_at', 'archived'];
 
   constructor() {
     super();
 
-    this._id = this.getAttribute("id");
-    this._title = this.getAttribute("title");
-    this._body = this.getAttribute("body");
-    this._created_at = this.getAttribute("created_at");
-    this._archived = this.getAttribute("archived");
+    this._id = this.getAttribute('id');
+    this._title = this.getAttribute('title');
+    this._body = this.getAttribute('body');
+    this._created_at = this.getAttribute('created_at');
+    this._archived = this.getAttribute('archived');
   }
 
   connectedCallback() {
@@ -42,13 +42,13 @@ class NoteItem extends HTMLElement {
             }"></i> Detail
         </button>
         <button class="action-note ${
-          this._archived == "true" ? "btn-keluarkan-arsip" : "btn-arsip"
+          this._archived == 'true' ? 'btn-keluarkan-arsip' : 'btn-arsip'
         }" data-id="${this._id}" data-created_at="${this._created_at}">
             ${
-              this._archived == "true"
+              this._archived == 'true'
                 ? `<i class="fa-solid fa-inbox-out icon-keluarkan-arsip" data-id="${this._id}"></i>`
                 : `<i class="fa-regular fa-box-archive icon-arsip" data-id="${this._id}"></i>`
-            } ${this._archived == "true" ? "Keluarkan" : "Arsipkan"}
+            } ${this._archived == 'true' ? 'Keluarkan' : 'Arsipkan'}
         </button>
         <button class="action-note btn-hapus" data-id="${
           this._id
@@ -63,4 +63,4 @@ class NoteItem extends HTMLElement {
   }
 }
 
-customElements.define("note-item", NoteItem);
+customElements.define('note-item', NoteItem);

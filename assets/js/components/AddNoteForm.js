@@ -32,4 +32,4 @@ class AddNoteForm extends HTMLElement {
   }
 }
 
-customElements.define("add-note-form", AddNoteForm);
+customElements.define('add-note-form', AddNoteForm);

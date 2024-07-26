@@ -1,4 +1,21 @@
 @media (max-width: 575.98px) {
+  #loading i {
+    font-size: 30px !important;
+    margin-bottom: -10px;
+    color: var(--primary);
+  }
+
+  #loading h1 {
+    color: var(--primary);
+    font-size: 20px;
+    margin-bottom: 10px !important;
+  }
+
+  #loading h1 span {
+    display: inline-block;
+    margin: 0 10px;
+  }
+
   #main-content {
     padding: 20px !important;
   }

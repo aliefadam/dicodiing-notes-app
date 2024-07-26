@@ -231,7 +231,6 @@ function saveData({ title, body }) {
 function showData({ isArchived = false } = {}) {
   const tabCatatan = document.getElementById("tab-catatan");
   const tabDiarsipkan = document.getElementById("tab-diarsipkan");
-
   if (isArchived) {
     tabCatatan.classList.remove("active-tab");
     tabDiarsipkan.classList.add("active-tab");
@@ -239,17 +238,14 @@ function showData({ isArchived = false } = {}) {
     tabCatatan.classList.add("active-tab");
     tabDiarsipkan.classList.remove("active-tab");
   }
-
   document.getElementById("container-catatan").innerHTML = "";
   let notes = [];
-
   if (JSON.parse(localStorage.getItem("notesData"))) {
     notes = getLocalStorageItem("notesData");
   } else {
     saveToLocalStorage("notesData", JSON.stringify(notesData));
     notes = getLocalStorageItem("notesData");
   }
-
   notes.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
   notes
     .filter((note) => note.archived == isArchived)
@@ -262,10 +258,8 @@ function showData({ isArchived = false } = {}) {
       noteItem.setAttribute("archived", note.archived);
       document.getElementById("container-catatan").append(noteItem);
     });
-
   const totalCatatan = notes.length;
   const catatanDiarsipkan = notes.filter((note) => note.archived).length;
-
   document.getElementById("total-catatan").innerHTML = totalCatatan;
   document.getElementById("catatan-diarsipkan").innerHTML = catatanDiarsipkan;
 }

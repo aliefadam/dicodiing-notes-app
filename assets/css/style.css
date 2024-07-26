@@ -9,6 +9,7 @@ body {
 
 #main-content {
   padding: 30px;
+  min-height: calc(100vh - 100px);
 }
 
 header {
